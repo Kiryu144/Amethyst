@@ -1,0 +1,14 @@
+/* Created by David Klostermann on 17.05.2017. */
+#ifndef AMETHYST_AMETHYST_H
+#define AMETHYST_AMETHYST_H
+
+#include "view/window.h"
+#include "opengl/vbo.h"
+#include "opengl/shader.h"
+#include "util/fastfileio.h"
+#include "util/amethystexception.h"
+#include "mesh/mesh.h"
+#include "opengl/framebuffer.h"
+
+
+#endif
