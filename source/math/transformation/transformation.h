@@ -25,9 +25,15 @@ public:
     Transformation(Position position, Quaternion quaternion = Quaternion(), Scale scale = Scale());
 
     glm::mat4 getMatrix() const;
+
     Position& getPosition();
+    Position& pos();
+
     Quaternion& getRotation();
+    Quaternion& rot();
+
     Scale& getScale();
+    Scale& scl();
 };
 
 }

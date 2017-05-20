@@ -22,3 +22,15 @@ AM::Quaternion& AM::Transformation::getRotation() {
 AM::Scale& AM::Transformation::getScale() {
     return m_scale;
 }
+
+AM::Position &AM::Transformation::pos() {
+    return this->getPosition();
+}
+
+AM::Quaternion &AM::Transformation::rot() {
+    return this->getRotation();
+}
+
+AM::Scale &AM::Transformation::scl() {
+    return this->getScale();
+}
