@@ -2,6 +2,9 @@
 #ifndef AMETHYST_TEXTURE_H
 #define AMETHYST_TEXTURE_H
 
+#include <PICOPNG/Picopng.h>
+
+#include "util/fastfileio.h"
 #include "view/window.h"
 
 namespace AM {
@@ -9,10 +12,11 @@ namespace AM {
 class Texture {
 private:
     unsigned int m_textureVBO;
+    glm::tvec2<unsigned long> m_size;
 
-    void generateDepthBuffer(glm::vec2 size);
 public:
     Texture(glm::vec2 size);
+    Texture(std::string filePath);
     ~Texture();
 
     void bind() const;

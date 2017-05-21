@@ -20,18 +20,16 @@ static bool fileExists(std::string path){
     }
 }
 
-static void readFile(std::string path, std::vector<char>& data){
+template <typename T>
+static void readFile(std::string path, std::vector<T>& data){
     if(!fileExists(path)){
         throwAmethystException("Could not read file " + path);
     }
 
-    std::ifstream f(path.c_str());
+    std::ifstream f(path.c_str(), std::ios::binary);
 
-    f.seekg(0, std::ios::end);
-    data.reserve(f.tellg());
-    f.seekg(0, std::ios::beg);
-
-    data.assign(std::istreambuf_iterator<char>(f), std::istreambuf_iterator<char>());
+    data.assign((std::istreambuf_iterator<char>(f)),
+                (std::istreambuf_iterator<char>()));
 }
 
 static void readFile(std::string path, std::string& data){
