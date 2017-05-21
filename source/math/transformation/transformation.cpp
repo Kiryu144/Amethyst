@@ -34,3 +34,7 @@ AM::Quaternion &AM::Transformation::rot() {
 AM::Scale &AM::Transformation::scl() {
     return this->getScale();
 }
+
+void AM::Transformation::lookAt(glm::vec3 dest) {
+    //TODO: Implement
+}

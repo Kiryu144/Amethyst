@@ -16,15 +16,11 @@ public:
     Quaternion(T x, T y, T z) {
         m_rotation = glm::vec3(x, y, z);
     }
-
     Quaternion(glm::vec3 rot);
-
     Quaternion() {};
 
     const glm::vec3 &getRotation() const;
-
     void setRotation(glm::vec3 rot);
-
     glm::mat4 getMatrix() const;
 };
 

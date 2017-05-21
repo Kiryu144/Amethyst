@@ -41,7 +41,7 @@ void AM::Framebuffer::unbind() {
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-Texture *AM::Framebuffer::getTexture() {
+AM::Texture *AM::Framebuffer::getTexture() {
     return &m_texture;
 }
 

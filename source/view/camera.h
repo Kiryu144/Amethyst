@@ -13,19 +13,13 @@ private:
     //Note: The scale component equals to the screen dimensions
     AM::Transformation m_transformation;
 
-    glm::mat4 m_lastProjection;
-    glm::mat4 m_lastView;
-    glm::mat4 m_lastProjectionViewMatrix;
-    glm::vec3 m_lastFront;
-
-    glm::mat4 m_currentProjection;
-    glm::vec3 m_front;
-    glm::vec3 m_lastRotation;
-    glm::vec2 m_rotation;
+    glm::mat4 m_projection;
+    glm::vec4 m_front;
+    glm::mat4 m_view;
 
     float m_fov = 80;
     float m_clippingPlaneNear = 0.01f;
-    float m_clippingPlaneFar = std::numeric_limits<float>::max();
+    float m_clippingPlaneFar = 1000000000;
 public:
     Camera() {};
     Camera(AM::Transformation transformation);
@@ -36,10 +30,7 @@ public:
 
      glm::mat4 getProjection();
      glm::mat4 getView();
-
-     glm::mat4 getProjectionViewMatrix();
-
-     glm::vec3& getFront();
+     glm::vec3 getFront();
 
      void setFOV(float fov);
      float getFOV();

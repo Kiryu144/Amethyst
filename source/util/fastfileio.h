@@ -7,6 +7,8 @@
 #include <fstream>
 #include <streambuf>
 
+#include "util/amethystexception.h"
+
 namespace AM {
 
 static bool fileExists(std::string path){
@@ -19,6 +21,10 @@ static bool fileExists(std::string path){
 }
 
 static void readFile(std::string path, std::vector<char>& data){
+    if(!fileExists(path)){
+        throwAmethystException("Could not read file " + path);
+    }
+
     std::ifstream f(path.c_str());
 
     f.seekg(0, std::ios::end);

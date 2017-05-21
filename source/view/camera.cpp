@@ -3,19 +3,17 @@
 
 AM::Camera::Camera(AM::Transformation transformation) {
     m_transformation = transformation;
+    this->update();
 }
 
 void AM::Camera::update() {
-    m_lastProjection = glm::perspective(glm::radians(m_fov), m_transformation.getScale().getScale().x / m_transformation.getScale().getScale().y, m_clippingPlaneNear, m_clippingPlaneFar);
-    m_lastView = glm::lookAt(m_transformation.getPosition().getPosition(), m_transformation.getPosition().getPosition() + getFront(), glm::vec3(0.0f, 1.0f, 0.0f));
-    m_lastProjectionViewMatrix = this->getProjection() * this->getView();
+    m_projection = glm::perspective(glm::radians(m_fov), m_transformation.getScale().getScale().x / m_transformation.getScale().getScale().y, m_clippingPlaneNear, m_clippingPlaneFar);
 
-    if (m_transformation.getRotation().getRotation() - m_lastRotation != glm::vec3(0, 0, 0)) {
-        m_front.x = cos(glm::radians(m_transformation.getRotation().getRotation().x)) * cos(glm::radians(m_transformation.getRotation().getRotation().y));
-        m_front.y = sin(glm::radians(m_transformation.getRotation().getRotation().x));
-        m_front.z = cos(glm::radians(m_transformation.getRotation().getRotation().x)) * sin(glm::radians(m_transformation.getRotation().getRotation().y));
-        m_lastRotation = m_transformation.getRotation().getRotation();
-    }
+    m_front.x = cos(glm::radians(m_transformation.getRotation().getRotation().x)) * cos(glm::radians(m_transformation.getRotation().getRotation().y));
+    m_front.y = sin(glm::radians(m_transformation.getRotation().getRotation().x));
+    m_front.z = cos(glm::radians(m_transformation.getRotation().getRotation().x)) * sin(glm::radians(m_transformation.getRotation().getRotation().y));
+
+    m_view = glm::lookAt(m_transformation.getPosition().getPosition(), m_transformation.getPosition().getPosition() + getFront(), glm::vec3(0.0f, 1.0f, 0.0f));
 }
 
 AM::Transformation& AM::Camera::getTransformation() {
@@ -23,19 +21,15 @@ AM::Transformation& AM::Camera::getTransformation() {
 }
 
 glm::mat4 AM::Camera::getProjection() {
-    return m_lastProjection;
+    return m_projection;
 }
 
 glm::mat4 AM::Camera::getView() {
-    return m_lastView;
+    return m_view;
 }
 
-glm::mat4 AM::Camera::getProjectionViewMatrix() {
-    return m_lastProjectionViewMatrix;
-}
-
-glm::vec3& AM::Camera::getFront() {
-    return m_lastFront;
+glm::vec3 AM::Camera::getFront() {
+    return m_front;
 }
 
 void AM::Camera::setFOV(float fov) {

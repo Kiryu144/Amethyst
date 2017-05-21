@@ -16,4 +16,3 @@ void AM::Quaternion::setRotation(glm::vec3 rot) {
 glm::mat4 AM::Quaternion::getMatrix() const {
     return glm::orientate4(m_rotation / glm::vec3(57.2958)); //Convert degrees to radiants
 }
-

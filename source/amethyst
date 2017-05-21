@@ -9,6 +9,9 @@
 #include "util/amethystexception.h"
 #include "mesh/mesh.h"
 #include "opengl/framebuffer.h"
+#include "io/wavefrontparser.h"
+#include "opengl/texture.h"
+#include "view/camera.h"
 
 
 #endif

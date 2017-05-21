@@ -6,10 +6,12 @@
 #include "position.h"
 #include "rotation.h"
 #include "scale.h"
+#include "util/logger.h"
 
 #include <GLM/mat4x4.hpp>
 #include <GLM/glm.hpp>
 #include <GLM/gtx/transform.hpp>
+#include <GLM/gtx/string_cast.hpp>
 #include <GLM/gtx/euler_angles.hpp>
 #include <GLM/gtx/quaternion.hpp>
 
@@ -34,6 +36,8 @@ public:
 
     Scale& getScale();
     Scale& scl();
+
+    void lookAt(glm::vec3 pos);
 };
 
 }

@@ -4,6 +4,8 @@
 
 #include "view/window.h"
 
+namespace AM {
+
 class Texture {
 private:
     unsigned int m_textureVBO;
@@ -15,7 +17,8 @@ public:
 
     void bind() const;
     unsigned int getVBO() const;
-
 };
+
+}
 
 #endif

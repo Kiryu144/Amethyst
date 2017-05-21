@@ -35,7 +35,7 @@ set(SOURCE_FILES
     source/math/transformation/scale.cpp
     source/math/transformation/scale.h
     source/math/transformation/transformation.cpp
-    source/math/transformation/transformation.h)
+    source/math/transformation/transformation.h source/io/wavefrontparser.h source/io/wavefrontparser.cpp source/util/stringedit.h)
 
 
 add_library(Amethyst SHARED ${SOURCE_FILES})

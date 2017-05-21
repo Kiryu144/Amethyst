@@ -1,7 +1,7 @@
 /* Created by David Klostermann on 18.05.2017. */
 #include "texture.h"
 
-Texture::Texture(glm::vec2 size) {
+AM::Texture::Texture(glm::vec2 size) {
     glGenTextures(1, &m_textureVBO);
     this->bind();
 
@@ -12,15 +12,15 @@ Texture::Texture(glm::vec2 size) {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 }
 
-Texture::~Texture() {
+AM::Texture::~Texture() {
     glDeleteTextures(1, &m_textureVBO);
 }
 
-void Texture::bind() const {
+void AM::Texture::bind() const {
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, m_textureVBO);
 }
 
-unsigned int Texture::getVBO() const {
+unsigned int AM::Texture::getVBO() const {
     return m_textureVBO;
 }
