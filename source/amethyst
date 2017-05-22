@@ -12,6 +12,6 @@
 #include "io/wavefrontparser.h"
 #include "opengl/texture.h"
 #include "view/camera.h"
-
+#include "io/keyboard.h"
 
 #endif
