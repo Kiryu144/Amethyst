@@ -6,20 +6,25 @@ std::map<int, bool> AM::InputController::m_pressedKeys;
 std::map<int, bool> AM::InputController::m_alreadyClickedKeys;
 std::map<int, bool> AM::InputController::m_alreadyClickedKeysThisFrame;
 
-void __keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
-
-void AM::InputController::__keyCallback(GLFWwindow *window, int key, int scancode, int action, int mods) {
-    m_pressedKeys[key] = (action == GLFW_PRESS);
-}
-
-void AM::InputController::init() {
-    glfwSetKeyCallback(WindowHandler::getGlfwWindow(), AM::InputController::__keyCallback);
-    AM::Logger::info("InputController initialized!", 2);
-}
-
 void AM::InputController::process() {
     m_lastFramePressedKeys = m_pressedKeys;
-    m_pressedKeys.clear();
+    m_pressedKeys = std::map<int, bool>();
+
+
+    for(int i = -3; i < __glfwKeyCodeAmount; i++){ //Check for every key if its pressed
+        if(i >= 0) { //Keyboard
+            m_pressedKeys[__glfwKeyCodes[i]] = (glfwGetKey(WindowHandler::getGlfwWindow(), __glfwKeyCodes[i]) == GLFW_PRESS);
+        }else{ //Mouse
+            switch(i){
+                case -3: m_pressedKeys[GLFW_KEY_RMB] = glfwGetMouseButton(WindowHandler::getGlfwWindow(), GLFW_MOUSE_BUTTON_RIGHT); break;
+                case -2: m_pressedKeys[GLFW_KEY_LMB] = glfwGetMouseButton(WindowHandler::getGlfwWindow(), GLFW_MOUSE_BUTTON_LEFT); break;
+                case -1: m_pressedKeys[GLFW_KEY_MMB] = glfwGetMouseButton(WindowHandler::getGlfwWindow(), GLFW_MOUSE_BUTTON_MIDDLE); break;
+            } //TODO: Fix ClickedKey support for mouse
+        }
+        if(m_alreadyClickedKeys[__glfwKeyCodes[i]] && !m_pressedKeys[__glfwKeyCodes[i]]){
+            m_alreadyClickedKeys[__glfwKeyCodes[i]] = false;
+        }
+    }
 }
 
 bool AM::InputController::isPressed(int key) {
