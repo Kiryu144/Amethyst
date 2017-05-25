@@ -22,12 +22,14 @@ private:
     static std::map<int, bool> m_pressedKeys;
     static std::map<int, bool> m_alreadyClickedKeys; //Stores if key was pressed but not released any time
     static std::map<int, bool> m_alreadyClickedKeysThisFrame; // -||- .. this frame
+    static glm::vec2 m_mousePosition;
 public:
     static void process();
 
     static bool isPressed(int key); //Returns true while key is pressed
     static bool isClicked(int key); //Returns true when key is pressed once, ignored all after
     static bool isReleased(int key); //Returns true when key is released, after being pressed
+    static glm::vec2 getMousePosition();
 };
 
 }

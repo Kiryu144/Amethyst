@@ -5,26 +5,31 @@ std::map<int, bool> AM::InputController::m_lastFramePressedKeys;
 std::map<int, bool> AM::InputController::m_pressedKeys;
 std::map<int, bool> AM::InputController::m_alreadyClickedKeys;
 std::map<int, bool> AM::InputController::m_alreadyClickedKeysThisFrame;
+glm::vec2 AM::InputController::m_mousePosition;
 
 void AM::InputController::process() {
     m_lastFramePressedKeys = m_pressedKeys;
     m_pressedKeys = std::map<int, bool>();
 
-
-    for(int i = -3; i < __glfwKeyCodeAmount; i++){ //Check for every key if its pressed
-        if(i >= 0) { //Keyboard
+    for(int i = 0; i < __glfwKeyCodeAmount + 3; i++){ //Check for every key if its pressed
+        if(i < __glfwKeyCodeAmount) { //Keyboard
             m_pressedKeys[__glfwKeyCodes[i]] = (glfwGetKey(WindowHandler::getGlfwWindow(), __glfwKeyCodes[i]) == GLFW_PRESS);
         }else{ //Mouse
-            switch(i){
-                case -3: m_pressedKeys[GLFW_KEY_RMB] = glfwGetMouseButton(WindowHandler::getGlfwWindow(), GLFW_MOUSE_BUTTON_RIGHT); break;
-                case -2: m_pressedKeys[GLFW_KEY_LMB] = glfwGetMouseButton(WindowHandler::getGlfwWindow(), GLFW_MOUSE_BUTTON_LEFT); break;
-                case -1: m_pressedKeys[GLFW_KEY_MMB] = glfwGetMouseButton(WindowHandler::getGlfwWindow(), GLFW_MOUSE_BUTTON_MIDDLE); break;
-            } //TODO: Fix ClickedKey support for mouse
+            switch(__glfwKeyCodes[i]){
+                case GLFW_KEY_RMB: m_pressedKeys[GLFW_KEY_RMB] = (glfwGetMouseButton(WindowHandler::getGlfwWindow(), GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS ); break;
+                case GLFW_KEY_LMB: m_pressedKeys[GLFW_KEY_LMB] = (glfwGetMouseButton(WindowHandler::getGlfwWindow(), GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS ); break;
+                case GLFW_KEY_MMB: m_pressedKeys[GLFW_KEY_MMB] = (glfwGetMouseButton(WindowHandler::getGlfwWindow(), GLFW_MOUSE_BUTTON_MIDDLE) == GLFW_PRESS ); break;
+            }
         }
         if(m_alreadyClickedKeys[__glfwKeyCodes[i]] && !m_pressedKeys[__glfwKeyCodes[i]]){
             m_alreadyClickedKeys[__glfwKeyCodes[i]] = false;
         }
     }
+
+    double mousePosX;
+    double mousePosY;
+    glfwGetCursorPos(WindowHandler::getGlfwWindow(), &mousePosX, &mousePosY);
+    m_mousePosition = glm::vec2(mousePosX, mousePosY);
 }
 
 bool AM::InputController::isPressed(int key) {
@@ -39,4 +44,8 @@ bool AM::InputController::isClicked(int key) {
 
 bool AM::InputController::isReleased(int key) {
     return m_lastFramePressedKeys[key] && !m_pressedKeys[key];
+}
+
+glm::vec2 AM::InputController::getMousePosition() {
+    return m_mousePosition;
 }
