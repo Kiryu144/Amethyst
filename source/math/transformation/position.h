@@ -2,25 +2,16 @@
 #ifndef AMETHYST3D_POSITION_H
 #define AMETHYST3D_POSITION_H
 
+#include "math/transformation/transformationcomponent.h"
+
 #include <GLM/common.hpp>
 #include <GLM/gtx/transform.hpp>
 
 namespace AM {
 
-class Position {
-private:
-    glm::vec3 m_position;
+class Position : public TransformationComponent {
 public:
-    template<typename T>
-    Position(T x, T y, T z){
-        m_position = glm::vec3(x, y, z);
-    }
-    Position(glm::vec3 pos);
-    Position() {};
-
-    const glm::vec3 &getPosition() const;
-    void setPosition(glm::vec3 pos);
-    void translate(glm::vec3 other);
+    using TransformationComponent::TransformationComponent;
 
     glm::mat4 getMatrix() const;
 };

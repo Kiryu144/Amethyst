@@ -2,25 +2,18 @@
 #ifndef AMETHYST3D_ROTATION_H
 #define AMETHYST3D_ROTATION_H
 
+#include "math/transformation/transformationcomponent.h"
+
 #include <GLM/common.hpp>
 #include <GLM/mat4x4.hpp>
 #include <GLM/gtx/euler_angles.hpp>
 
 namespace AM {
 
-class Quaternion {
-private:
-    glm::vec3 m_rotation;
+class Quaternion : public TransformationComponent {
 public:
-    template<typename T>
-    Quaternion(T x, T y, T z) {
-        m_rotation = glm::vec3(x, y, z);
-    }
-    Quaternion(glm::vec3 rot);
-    Quaternion() {};
+    using TransformationComponent::TransformationComponent;
 
-    const glm::vec3 &getRotation() const;
-    void setRotation(glm::vec3 rot);
     glm::mat4 getMatrix() const;
 };
 
