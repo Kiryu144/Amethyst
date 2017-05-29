@@ -39,27 +39,17 @@ private:
     static glm::vec4 m_clearColorNormalized;
 public:
     static void init();
-
     static void destroy();
-
     static bool poll();
 
     static void swapBuffers(bool clear = true);
-
     static void createWindow(std::string title, glm::vec2 size, glm::vec4 color);
-
     static GLFWwindow *getGlfwWindow();
-
     static void setClearColor(glm::vec4 color);
-
     static glm::vec4 getClearColor();
-
     static void setSize(glm::vec2 size);
-
     static glm::vec2 getSize();
-
     static void setFocus();
-
     static bool isFocused();
 };
 

@@ -6,6 +6,8 @@ std::map<int, bool> AM::InputController::m_pressedKeys;
 std::map<int, bool> AM::InputController::m_alreadyClickedKeys;
 std::map<int, bool> AM::InputController::m_alreadyClickedKeysThisFrame;
 glm::vec2 AM::InputController::m_mousePosition;
+glm::vec2 AM::InputController::m_mouseOffsetPerFrame;
+glm::vec2 AM::InputController::m_mouseLockPosition;
 
 void AM::InputController::process() {
     m_lastFramePressedKeys = m_pressedKeys;
@@ -30,6 +32,11 @@ void AM::InputController::process() {
     double mousePosY;
     glfwGetCursorPos(WindowHandler::getGlfwWindow(), &mousePosX, &mousePosY);
     m_mousePosition = glm::vec2(mousePosX, mousePosY);
+
+    if(mouseIsLocked()){
+        m_mouseOffsetPerFrame = m_mouseLockPosition - m_mousePosition;
+        setMousePosition(m_mouseLockPosition);
+    }
 }
 
 bool AM::InputController::isPressed(int key) {
@@ -49,3 +56,24 @@ bool AM::InputController::isReleased(int key) {
 glm::vec2 AM::InputController::getMousePosition() {
     return m_mousePosition;
 }
+
+void AM::InputController::setMousePosition(glm::vec2 pos) {
+    glfwSetCursorPos(WindowHandler::getGlfwWindow(), pos.x, pos.y);
+}
+
+void AM::InputController::lockMousePosition(glm::vec2 pos) {
+    m_mouseLockPosition = pos;
+}
+
+void AM::InputController::releaseMouse() {
+    m_mouseLockPosition = glm::vec2(-1, -1);
+}
+
+bool AM::InputController::mouseIsLocked() {
+    return m_mouseLockPosition != glm::vec2(-1, -1);
+}
+
+glm::vec2 AM::InputController::getMouseFrameOffset() {
+    return m_mouseOffsetPerFrame;
+}
+

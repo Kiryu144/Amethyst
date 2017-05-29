@@ -13,5 +13,7 @@
 #include "opengl/texture.h"
 #include "view/camera.h"
 #include "io/keyboard.h"
+#include "math/time.h"
+#include "view/debugcamera.h"
 
 #endif
