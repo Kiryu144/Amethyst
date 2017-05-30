@@ -19,6 +19,9 @@ public:
     }
 
     void upload(std::vector<T> &data, GLenum storagePattern = GL_STATIC_DRAW) {
+        if(data.size() == 0){
+            throwAmethystException("Could not upload data to VBO. Array size is 0!");
+        }
         if (this->vboExists()) {
             this->deleteVBO();
         }

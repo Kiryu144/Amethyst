@@ -26,8 +26,8 @@ void AM::Debugcamera::updateMovement() {
             m_camera->getTransformation().getPosition().translate(-glm::vec3(0.0f, 1.0f, 0.0f) * m_speed * DeltaTime::getBigDeltaTime());
         }
 
-        float newRotX = m_camera->getTransformation().getRotation().getRotation().x + InputController::getMouseFrameOffset().y/4;
-        float newRotY = m_camera->getTransformation().getRotation().getRotation().y - InputController::getMouseFrameOffset().x/4;
+        float newRotX = m_camera->getTransformation().getRotation().get().x + InputController::getMouseFrameOffset().y/4;
+        float newRotY = m_camera->getTransformation().getRotation().get().y - InputController::getMouseFrameOffset().x/4;
 
         if(newRotX <= -89){
             newRotX = -88.9999;
@@ -35,7 +35,7 @@ void AM::Debugcamera::updateMovement() {
             newRotX = 88.9999;
         }
 
-        m_camera->getTransformation().getRotation().setRotation(glm::vec3(newRotX, newRotY, 0));
+        m_camera->getTransformation().getRotation().set(glm::vec3(newRotX, newRotY, 0));
     }
 }
 
