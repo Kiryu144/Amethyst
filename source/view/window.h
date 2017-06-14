@@ -22,7 +22,7 @@ static void glewInit() {
     float start = glfwGetTime();
     glewExperimental = GL_TRUE;
     int glewState = ::glewInit();
-    if(glewState != GLEW_OK){ /* If glewInit() fails */
+    if(glewState){ /* If glewInit() fails */
         throwAmethystException(("Could not glewInit(). GLEW Error: " + std::string((const char*)glewGetErrorString(glewState))));
     }
 

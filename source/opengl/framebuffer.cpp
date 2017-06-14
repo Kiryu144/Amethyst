@@ -3,9 +3,10 @@
 
 AM::Framebuffer::Framebuffer(glm::vec2 size) : m_texture(size) {
     glGenFramebuffers(1, &m_framebVBO);
-    this->bind(size);
+    this->bind();
     m_texture.bind();
     m_depthVBO = this->generateDepthBuffer(size);
+    m_size = size;
 
     glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, m_texture.getVBO(), 0);
     GLenum drawBuffers[1] = {GL_COLOR_ATTACHMENT0};
@@ -32,9 +33,9 @@ unsigned int AM::Framebuffer::generateDepthBuffer(glm::vec2 size) {
     return vbo;
 }
 
-void AM::Framebuffer::bind(glm::vec2 size) {
+void AM::Framebuffer::bind() {
     glBindFramebuffer(GL_FRAMEBUFFER, m_framebVBO);
-    glViewport(0, 0, size.x, size.y);
+    glViewport(0, 0, m_size.x, m_size.y);
 }
 
 void AM::Framebuffer::unbind() {

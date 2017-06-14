@@ -63,7 +63,6 @@ void AM::WindowHandler::createWindow(std::string title, glm::vec2 size, glm::vec
     /* Create window and bind with openGL */
     m_glfwWindow = glfwCreateWindow(int(size.x), int(size.y), title.c_str(), NULL, NULL); /* Creates window (GLFW)*/
     glfwMakeContextCurrent(m_glfwWindow);
-    glfwSetWindowPos(m_glfwWindow, 100, 100);
     glfwSwapInterval(0);
 
     /* Init glew and set clear color */
