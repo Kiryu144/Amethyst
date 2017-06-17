@@ -40,7 +40,7 @@ private:
 public:
     static void init();
     static void destroy();
-    static bool poll();
+    static bool poll(bool swap = true);
 
     static void swapBuffers(bool clear = true);
     static void createWindow(std::string title, glm::vec2 size, glm::vec4 color);
@@ -51,6 +51,7 @@ public:
     static glm::vec2 getSize();
     static void setFocus();
     static bool isFocused();
+    static void setContextCurrent();
 };
 
 }

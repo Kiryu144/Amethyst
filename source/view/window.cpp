@@ -7,7 +7,7 @@ glm::vec4 AM::WindowHandler::m_clearColor;
 glm::vec4 AM::WindowHandler::m_clearColorNormalized;
 
 static void init();
-static bool poll();
+static bool poll(bool swap = true);
 static void swapBuffers(bool clear = true);
 static void createWindow(std::string title, glm::vec2 size, glm::vec4 color);
 static GLFWwindow *getGlfwWindow();
@@ -17,6 +17,8 @@ static glm::vec2 getSize();
 static glm::vec2 getSize();
 static void setFocus();
 static bool isFocused();
+static void setContextCurrent();
+
 
 void AM::WindowHandler::init() {
     float start = glfwGetTime();
@@ -26,14 +28,14 @@ void AM::WindowHandler::init() {
     AM::Logger::info("WindowHandler initialized in " + std::to_string(glfwGetTime() - start) + " ms!", 2);
 }
 
-bool AM::WindowHandler::poll() {
+bool AM::WindowHandler::poll(bool swap) {
     /* Look out for OS events */
     glfwPollEvents();
 
     if(glfwWindowShouldClose(m_glfwWindow)){
         Logger::info("Received close request", 3);
         return false;
-    }else{
+    }else if(swap){
         swapBuffers(true);
         return true;
     }
@@ -109,4 +111,8 @@ bool AM::WindowHandler::isFocused() {
 
 void AM::WindowHandler::destroy() {
     glfwDestroyWindow(m_glfwWindow);
+}
+
+void AM::WindowHandler::setContextCurrent() {
+    glfwMakeContextCurrent(m_glfwWindow);
 }

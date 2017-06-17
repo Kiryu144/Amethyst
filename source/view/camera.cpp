@@ -9,9 +9,9 @@ AM::Camera::Camera(AM::Transformation transformation) {
 void AM::Camera::update() {
     m_projection = glm::perspective(glm::radians(m_fov), m_transformation.getScale().get().x / m_transformation.getScale().get().y, m_clippingPlaneNear, m_clippingPlaneFar);
 
-    m_front.x = cos(glm::radians(m_transformation.getRotation().get().x)) * cos(glm::radians(m_transformation.getRotation().get().y));
-    m_front.y = sin(glm::radians(m_transformation.getRotation().get().x));
-    m_front.z = cos(glm::radians(m_transformation.getRotation().get().x)) * sin(glm::radians(m_transformation.getRotation().get().y));
+    m_front.x = std::cos(glm::radians(m_transformation.getRotation().get().x)) * std::cos(glm::radians(m_transformation.getRotation().get().y));
+    m_front.y = std::sin(glm::radians(m_transformation.getRotation().get().x));
+    m_front.z = std::cos(glm::radians(m_transformation.getRotation().get().x)) * std::sin(glm::radians(m_transformation.getRotation().get().y));
 
     m_view = glm::lookAt(m_transformation.getPosition().get(), m_transformation.getPosition().get() + getFront(), glm::vec3(0.0f, 1.0f, 0.0f));
 }
