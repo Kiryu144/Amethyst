@@ -33,6 +33,7 @@ static void glewInit() {
 class WindowHandler {
 private:
     static GLFWwindow *m_glfwWindow;
+    static GLFWwindow *m_sharedGlfwWindow;
 
     static glm::vec2 m_windowSize;
     static glm::vec4 m_clearColor;
@@ -45,13 +46,13 @@ public:
     static void swapBuffers(bool clear = true);
     static void createWindow(std::string title, glm::vec2 size, glm::vec4 color);
     static GLFWwindow *getGlfwWindow();
+    static GLFWwindow *getSharedGlfwWindow();
     static void setClearColor(glm::vec4 color);
     static glm::vec4 getClearColor();
     static void setSize(glm::vec2 size);
     static glm::vec2 getSize();
     static void setFocus();
     static bool isFocused();
-    static void setContextCurrent();
 };
 
 }

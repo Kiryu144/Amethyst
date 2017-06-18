@@ -2,6 +2,7 @@
 #include "window.h"
 
 GLFWwindow *AM::WindowHandler::m_glfwWindow = nullptr;
+GLFWwindow *AM::WindowHandler::m_sharedGlfwWindow = nullptr;
 glm::vec2 AM::WindowHandler::m_windowSize;
 glm::vec4 AM::WindowHandler::m_clearColor;
 glm::vec4 AM::WindowHandler::m_clearColorNormalized;
@@ -11,13 +12,13 @@ static bool poll(bool swap = true);
 static void swapBuffers(bool clear = true);
 static void createWindow(std::string title, glm::vec2 size, glm::vec4 color);
 static GLFWwindow *getGlfwWindow();
+static GLFWwindow *getSharedGlfwWindow();
 static void setClearColor(glm::vec4 color);
 static glm::vec4 getClearColor();
 static glm::vec2 getSize();
 static glm::vec2 getSize();
 static void setFocus();
 static bool isFocused();
-static void setContextCurrent();
 
 
 void AM::WindowHandler::init() {
@@ -57,13 +58,17 @@ void AM::WindowHandler::createWindow(std::string title, glm::vec2 size, glm::vec
 
     AM::WindowHandler::m_windowSize = size;
 
+    glfwWindowHint(GLFW_VISIBLE, GL_FALSE);
+    m_sharedGlfwWindow = glfwCreateWindow( 1, 1, "Thread Window", NULL, NULL);
+
     /* Set window properties */
     glfwWindowHint(GLFW_DOUBLEBUFFER, GL_TRUE);
     glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
     glfwWindowHint(GLFW_SAMPLES, 2);
 
+    glfwWindowHint( GLFW_VISIBLE, GL_TRUE);
     /* Create window and bind with openGL */
-    m_glfwWindow = glfwCreateWindow(int(size.x), int(size.y), title.c_str(), NULL, NULL); /* Creates window (GLFW)*/
+    m_glfwWindow = glfwCreateWindow(int(size.x), int(size.y), title.c_str(), NULL, m_sharedGlfwWindow); /* Creates window (GLFW)*/
     glfwMakeContextCurrent(m_glfwWindow);
     glfwSwapInterval(0);
 
@@ -77,6 +82,10 @@ void AM::WindowHandler::createWindow(std::string title, glm::vec2 size, glm::vec
 
 GLFWwindow *AM::WindowHandler::getGlfwWindow() {
     return m_glfwWindow;
+}
+
+GLFWwindow *AM::WindowHandler::getSharedGlfwWindow() {
+    return m_sharedGlfwWindow;
 }
 
 void AM::WindowHandler::setClearColor(glm::vec4 color) {
@@ -111,8 +120,4 @@ bool AM::WindowHandler::isFocused() {
 
 void AM::WindowHandler::destroy() {
     glfwDestroyWindow(m_glfwWindow);
-}
-
-void AM::WindowHandler::setContextCurrent() {
-    glfwMakeContextCurrent(m_glfwWindow);
 }
