@@ -5,6 +5,7 @@
 #include <string>
 #include <GLEW/glew.h>
 #include <GLFW/glfw3.h>
+#include <vector>
 #include <GLM/common.hpp>
 
 #include "util/amethystexception.h"
@@ -30,30 +31,55 @@ static void glewInit() {
     Logger::info("Created GLEW interface in " + std::to_string(glfwGetTime() - start) + " ms!", 3);
 }
 
-class WindowHandler {
+
+class Window {
 private:
-    static GLFWwindow *m_glfwWindow;
-    static GLFWwindow *m_sharedGlfwWindow;
+    GLFWwindow* m_glfwWindow;
 
-    static glm::vec2 m_windowSize;
-    static glm::vec4 m_clearColor;
-    static glm::vec4 m_clearColorNormalized;
+    std::string m_lastTitle;
+    glm::vec4 m_lastClearColor;
 public:
-    static void init();
-    static void destroy();
-    static bool poll(bool swap = true);
+    Window(std::string title, glm::vec2 size, GLFWwindow* master, bool visible = true);
+    ~Window();
 
-    static void swapBuffers(bool clear = true);
-    static void createWindow(std::string title, glm::vec2 size, glm::vec4 color);
-    static GLFWwindow *getGlfwWindow();
-    static GLFWwindow *getSharedGlfwWindow();
-    static void setClearColor(glm::vec4 color);
-    static glm::vec4 getClearColor();
-    static void setSize(glm::vec2 size);
-    static glm::vec2 getSize();
-    static void setFocus();
-    static bool isFocused();
+    void swap();
+    void clear(int buffers = GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    GLFWwindow* getGLFWwindow();
+    void makeContextCurrent();
+    void makeContextNull();
+
+    /* Settings */
+    void setTitle(std::string title);
+    std::string getTitle();
+
+    void setSize(glm::vec2 size);
+    glm::vec2 getSize();
+
+    void setClearColor(glm::vec4 clearColor);
+    glm::vec4 getClearColor();
+
+    void setFocus();
+    bool isFocused();
+
+    bool isVisible();
 };
+
+namespace WindowHandler {
+namespace detail {
+    static Window* masterWindow;
+    static std::vector<Window*> sharedWindows;
+}
+
+void init(std::string title, glm::vec2 size, glm::vec4 clearColor, int sharedWindows);
+void destroy();
+
+bool update(bool swap = true);
+Window* getWindow();
+GLFWwindow* getGlfwWindow();
+Window* getSharedWindow(int index);
+
+}
 
 }
 
