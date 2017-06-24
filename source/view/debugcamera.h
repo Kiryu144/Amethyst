@@ -28,6 +28,9 @@ private:
 public:
     Debugcamera(Camera* camera);
     void updateMovement();
+
+    void setSpeed(float speed);
+    float getSpeed();
 };
 
 }
