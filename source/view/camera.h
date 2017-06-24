@@ -22,6 +22,7 @@ private:
     float m_clippingPlaneFar = 1000000000;
 public:
     Camera(AM::Transformation transformation);
+    Camera() {};
 
     void update();
 

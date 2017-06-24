@@ -6,7 +6,7 @@ AM::Debugcamera::Debugcamera(AM::Camera *camera) {
 }
 
 void AM::Debugcamera::updateMovement() {
-    if (WindowHandler::isFocused()) {
+    if (WindowHandler::getWindow()->isFocused()) {
         if (InputController::isPressed(GLFW_KEY_W)) {
             m_camera->getTransformation().getPosition().translate(glm::normalize(m_camera->getFront() * glm::vec3(1.0f, 0.0f, 1.0f)) * m_speed * DeltaTime::getBigDeltaTime());
         }
