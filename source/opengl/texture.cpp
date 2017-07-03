@@ -22,6 +22,7 @@ AM::Texture::Texture(std::string filePath) {
         throwAmethystException("PicoPNG returned error code " + std::to_string(error));
     }
 
+
     glGenTextures(1, &m_textureVBO);
     this->bind();
 
@@ -36,6 +37,9 @@ AM::Texture::~Texture() {
 }
 
 void AM::Texture::bind() const {
+    if(m_textureVBO == unsigned (-1)){
+        throwAmethystException("Cannot bind texture with no VBO data uploaded!");
+    }
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, m_textureVBO);
 }

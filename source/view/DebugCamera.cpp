@@ -39,6 +39,14 @@ void AM::Debugcamera::updateMovement() {
     }
 }
 
+void AM::Debugcamera::setSpeed(float speed) {
+    m_speed = speed;
+}
+
+float AM::Debugcamera::getSpeed() {
+    return m_speed;
+}
+
 /*
 void AM::Debugcamera::updateMovement() {
     glm::vec3 movingDirection;

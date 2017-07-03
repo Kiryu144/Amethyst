@@ -16,5 +16,6 @@
 #include "math/time.h"
 #include "view/debugcamera.h"
 #include "math/boundingbox.h"
+#include "util/util.h"
 
 #endif

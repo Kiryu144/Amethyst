@@ -11,6 +11,7 @@ template<typename T, unsigned int elementAmount, int dataType = GL_FLOAT>
 class VBO {
 private:
     unsigned int m_vbo = -1; //Setting to max int
+    unsigned int m_verticeAmount = 0;
 public:
     VBO() {}
 
@@ -28,6 +29,7 @@ public:
         glGenBuffers(1, &m_vbo);
         glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
         glBufferData(GL_ARRAY_BUFFER, data.size() * sizeof(T), &data.at(0), GL_STATIC_DRAW);
+        m_verticeAmount = data.size();
     }
 
     bool vboExists() const{
@@ -47,6 +49,10 @@ public:
         glEnableVertexAttribArray(index);
         glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
         glVertexAttribPointer(index, elementAmount, dataType, GL_FALSE, 0, (void *) 0);
+    }
+
+    unsigned int getVerticeAmount(){
+        return m_verticeAmount;
     }
 };
 
