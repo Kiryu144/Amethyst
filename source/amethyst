@@ -17,5 +17,6 @@
 #include "view/debugcamera.h"
 #include "math/boundingbox.h"
 #include "util/util.h"
+#include "util/queue.h"
 
 #endif
