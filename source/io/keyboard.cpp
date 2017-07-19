@@ -7,7 +7,7 @@ std::map<int, bool> AM::InputController::m_alreadyClickedKeys;
 std::map<int, bool> AM::InputController::m_alreadyClickedKeysThisFrame;
 glm::vec2 AM::InputController::m_mousePosition;
 glm::vec2 AM::InputController::m_mouseOffsetPerFrame;
-glm::vec2 AM::InputController::m_mouseLockPosition;
+glm::vec2 AM::InputController::m_mouseLockPosition = glm::vec2(-1, -1);
 
 void AM::InputController::process() {
     m_lastFramePressedKeys = m_pressedKeys;

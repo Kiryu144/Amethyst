@@ -11,6 +11,9 @@
 #include "util/amethystexception.h"
 #include "util/logger.h"
 
+#define AM_WINDOW_GLEWINIT_FAIL 1
+#define AM_WINDOW_ALREADY_INITIALIZED 2
+
 namespace AM {
 
 static void setupOpenGLSettings() {
@@ -22,15 +25,11 @@ static void setupOpenGLSettings() {
 };
 
 static void glewInit() {
-    float start = glfwGetTime();
     glewExperimental = GL_TRUE;
     int glewState = ::glewInit();
     if(glewState){ /* If glewInit() fails */
-        throwAmethystException(("Could not glewInit(). GLEW Error: " + std::string((const char*)glewGetErrorString(glewState))));
+        throwAmethystException(AM_WINDOW_GLEWINIT_FAIL, ("Could not glewInit(). GLEW Error: " + std::string((const char*)glewGetErrorString(glewState))));
     }
-
-    Logger::info("OpenGL version " + std::string((const char*)glGetString(GL_VERSION)), 2);
-    Logger::info("Created GLEW interface in " + std::to_string(glfwGetTime() - start) + " ms!", 3);
 }
 
 
@@ -74,6 +73,7 @@ namespace detail {
 }
 
 void init(std::string title, glm::vec2 size, glm::vec4 clearColor, int sharedWindows);
+void init();
 void destroy();
 
 bool update(bool swap = true);

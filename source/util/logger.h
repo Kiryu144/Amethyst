@@ -9,27 +9,18 @@ namespace AM {
 class Logger {
 public:
     template<typename T>
-    static void info(T info, int level, bool endl = true) {
-        std::cout << "[INFO] " << info;
-        if (endl) {
-            std::cout << std::endl;
-        }
+    static void info(T info) {
+        std::cout << "[INFO] " << info << std::endl;
     }
 
     template<typename T>
-    static void warning(T warn, int level, bool endl = true) {
+    static void warning(T warn) {
         std::cout << "[WARNING] " << warn;
-        if (endl) {
-            std::cout << std::endl;
-        }
     }
 
     template<typename T>
-    static void error(T err, bool endl = true) {
-        std::cout << "[ERROR] " << err;
-        if (endl) {
-            std::cout << std::endl;
-        }
+    static void error(T err) {
+        std::cerr << "[ERROR] " << err << std::endl;
     }
 };
 

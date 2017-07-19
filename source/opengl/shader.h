@@ -11,6 +11,12 @@
 #include "util/fastfileio.h"
 #include "util/amethystexception.h"
 
+#define AM_SHADER_COMPILE_FAIL 1
+#define AM_SHADER_LINK_FAIL    2
+#define AM_SHADER_COULD_NOT_RETREIVE_UNIFORM 3
+
+
+
 namespace AM {
 
 class Shader {

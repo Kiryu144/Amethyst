@@ -34,7 +34,7 @@ unsigned int AM::Shader::compileShader(std::string& shader, int shaderType) {
         std::vector<GLchar> log(logLenght);
         glGetShaderInfoLog(shaderID, logLenght, &logLenght, &log[0]);
         std::printf("%s\n", &log[0]);
-        throwAmethystException("Could not compile shader!\n");
+        throwAmethystException(AM_SHADER_COMPILE_FAIL, "Could not compile shader!");
     }
 
     return shaderID;
@@ -59,7 +59,7 @@ unsigned int AM::Shader::linkShaders(unsigned int vertID, unsigned int fragID) {
         glDeleteShader(vertID);
         glDeleteShader(fragID);
 
-        throwAmethystException("Could not link shaders!\n" + log);
+        throwAmethystException(AM_SHADER_LINK_FAIL, "Could not link shaders!" + log);
     }
 
     glDetachShader(programID, vertID);
@@ -69,11 +69,7 @@ unsigned int AM::Shader::linkShaders(unsigned int vertID, unsigned int fragID) {
 }
 
 void AM::Shader::bind() const {
-    if(m_isCompiled()){
-        glUseProgram(m_programID);
-    }else{
-        throwAmethystException("Tried to bind invalid shader!");
-    }
+    glUseProgram(m_programID);
 }
 
 int AM::Shader::getUniformLocation(std::string uniformName) {
@@ -81,7 +77,7 @@ int AM::Shader::getUniformLocation(std::string uniformName) {
         this->bind();
         int uniformLocation = glGetUniformLocation(m_programID, uniformName.c_str());
         if(uniformLocation == GL_INVALID_INDEX){
-            throwAmethystException("Could not get uniform location of " + uniformName);
+            throwAmethystException(AM_SHADER_COULD_NOT_RETREIVE_UNIFORM, "Could not get uniform location!");
         }
         m_uniformLocations[uniformName] = uniformLocation;
         return uniformLocation;

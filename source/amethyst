@@ -19,4 +19,9 @@
 #include "util/util.h"
 #include "util/queue.h"
 
+#include <THREADS/mingw.mutex.h>
+#include <THREADS/mingw.thread.h>
+
+#include "engine.h"
+
 #endif

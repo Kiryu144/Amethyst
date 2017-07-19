@@ -8,6 +8,9 @@
 #include "util/fastfileio.h"
 #include "view/window.h"
 
+#define AM_TEXTURE_PICOPNG_ERROR 1
+#define AM_SHADER_BIND_FAIL    2
+
 namespace AM {
 
 class Texture {

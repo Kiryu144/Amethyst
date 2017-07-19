@@ -19,7 +19,7 @@ AM::Texture::Texture(std::string filePath) {
     std::vector<unsigned char> decodedImage;
     int error = decodePNG(decodedImage, m_size.x, m_size.y, &encodedImage.at(0), encodedImage.size());
     if(error != 0){
-        throwAmethystException("PicoPNG returned error code " + std::to_string(error));
+        throwAmethystException(AM_TEXTURE_PICOPNG_ERROR, "PicoPNG returned error code " + std::to_string(error));
     }
 
 
@@ -38,7 +38,7 @@ AM::Texture::~Texture() {
 
 void AM::Texture::bind() const {
     if(m_textureVBO == unsigned (-1)){
-        throwAmethystException("Cannot bind texture with no VBO data uploaded!");
+        throwAmethystException(AM_SHADER_BIND_FAIL, "Cannot bind texture with no VBO data uploaded!");
     }
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, m_textureVBO);

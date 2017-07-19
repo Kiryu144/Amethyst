@@ -5,6 +5,8 @@
 #include "view/window.h"
 #include "opengl/texture.h"
 
+#define AM_FRAMEBUFFER_GPU_ERROR 1
+
 namespace AM {
 
 class Framebuffer {

@@ -27,6 +27,12 @@ public:
         }
     }
 
+    void addPriority(T& element){
+        if(!this->contains(element)){
+            data.insert(data.begin(), element);
+        }
+    }
+
     void remove(T& element){
         auto it = this->getIterator(element);
         if(it != data.end()){
