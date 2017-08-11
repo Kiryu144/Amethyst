@@ -18,6 +18,8 @@
 #include "math/boundingbox.h"
 #include "util/util.h"
 #include "util/queue.h"
+#include "render/renderer/renderer2d.h"
+#include "compiled/shaders.h"
 
 #include <THREADS/mingw.mutex.h>
 #include <THREADS/mingw.thread.h>

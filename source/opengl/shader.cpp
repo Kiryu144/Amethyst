@@ -1,13 +1,17 @@
 /* Created by David Klostermann on 17.05.2017. */
 #include "shader.h"
 
-AM::Shader::Shader(std::string vertexPath, std::string fragementPath) {
-    std::string vertexShader;
-    std::string fragShader;
-    readFile(vertexPath, vertexShader);
-    readFile(fragementPath, fragShader);
+AM::Shader::Shader(std::string vertex, std::string fragment, int type) {
+    if(type == SHADER_CODE){
+        m_programID = this->linkShaders(this->compileShader(vertex, GL_VERTEX_SHADER), this->compileShader(fragment, GL_FRAGMENT_SHADER));
+    }else{
+        std::string vertexShader;
+        std::string fragShader;
+        readFile(vertex, vertexShader);
+        readFile(fragment, fragShader);
 
-    m_programID = this->linkShaders(this->compileShader(vertexShader, GL_VERTEX_SHADER), this->compileShader(fragShader, GL_FRAGMENT_SHADER));
+        m_programID = this->linkShaders(this->compileShader(vertexShader, GL_VERTEX_SHADER), this->compileShader(fragShader, GL_FRAGMENT_SHADER));
+    }
 }
 
 AM::Shader::~Shader() {

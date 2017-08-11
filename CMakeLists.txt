@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.7)
 project(Amethyst)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 14)
 
 
 include_directories(${PROJECT_SOURCE_DIR}/source/)
@@ -35,7 +35,25 @@ set(SOURCE_FILES
     source/math/transformation/scale.cpp
     source/math/transformation/scale.h
     source/math/transformation/transformation.cpp
-    source/math/transformation/transformation.h source/io/wavefrontparser.h source/io/wavefrontparser.cpp source/util/stringedit.h source/io/keyboard.cpp source/io/keyboard.h source/view/debugcamera.cpp source/view/debugcamera.h source/math/time.cpp source/math/time.h source/math/transformation/transformationcomponent.cpp source/math/transformation/transformationcomponent.h source/math/boundingbox.cpp source/math/boundingbox.h source/util/util.h source/util/queue.h source/engine.h)
+    source/math/transformation/transformation.h
+    source/io/wavefrontparser.h
+    source/io/wavefrontparser.cpp
+    source/util/stringedit.h
+    source/io/keyboard.cpp
+    source/io/keyboard.h
+    source/view/debugcamera.cpp
+    source/view/debugcamera.h
+    source/math/time.cpp
+    source/math/time.h
+    source/math/transformation/transformationcomponent.cpp
+    source/math/transformation/transformationcomponent.h
+    source/math/boundingbox.cpp
+    source/math/boundingbox.h
+    source/util/util.h
+    source/util/queue.h
+    source/engine.h
+    source/render/renderstructs.h
+        source/compiled/shaders.h source/render/renderer/renderer2d.h source/render/renderer/renderer2d.cpp source/opengl/pixelfield.cpp source/opengl/pixelfield.h)
 
 
 add_library(Amethyst SHARED ${SOURCE_FILES})

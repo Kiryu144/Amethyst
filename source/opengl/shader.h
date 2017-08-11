@@ -15,7 +15,8 @@
 #define AM_SHADER_LINK_FAIL    2
 #define AM_SHADER_COULD_NOT_RETREIVE_UNIFORM 3
 
-
+#define SHADER_CODE 1
+#define SHADER_PATH 2
 
 namespace AM {
 
@@ -26,7 +27,7 @@ private:
 
     bool m_isCompiled() const;
 public:
-    Shader(std::string vertexPath, std::string fragementPath);
+    Shader(std::string vertex, std::string fragment, int type = SHADER_PATH);
     ~Shader();
 
     unsigned int compileShader(std::string& shader, int shaderType);

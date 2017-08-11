@@ -32,6 +32,19 @@ AM::Texture::Texture(std::string filePath) {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 }
 
+AM::Texture::Texture(AM::Pixelfield &pixelfield) {
+    glGenTextures(1, &m_textureVBO);
+    this->bind();
+
+    m_size = pixelfield.getSize();
+
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_size.x, m_size.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, &pixelfield.get().at(0));
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+}
+
+
 AM::Texture::~Texture() {
     glDeleteTextures(1, &m_textureVBO);
 }
@@ -47,5 +60,6 @@ void AM::Texture::bind() const {
 unsigned int AM::Texture::getVBO() const {
     return m_textureVBO;
 }
+
 
 

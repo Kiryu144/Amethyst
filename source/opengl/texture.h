@@ -7,6 +7,7 @@
 
 #include "util/fastfileio.h"
 #include "view/window.h"
+#include "opengl/pixelfield.h"
 
 #define AM_TEXTURE_PICOPNG_ERROR 1
 #define AM_SHADER_BIND_FAIL    2
@@ -22,6 +23,7 @@ public:
     Texture() {};
     Texture(glm::vec2 size);
     Texture(std::string filePath);
+    Texture(Pixelfield& pixelfield);
     ~Texture();
 
     void bind() const;
