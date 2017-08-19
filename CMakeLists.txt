@@ -6,9 +6,11 @@ set(CMAKE_CXX_STANDARD 14)
 
 include_directories(${PROJECT_SOURCE_DIR}/source/)
 include_directories(${PROJECT_SOURCE_DIR}/external/include)
+include_directories(${PROJECT_SOURCE_DIR}/external/include/FREETYPE/)
 
 link_directories(${PROJECT_SOURCE_DIR}/external/lib/GLEW/)
 link_directories(${PROJECT_SOURCE_DIR}/external/lib/GLFW/)
+link_directories(${PROJECT_SOURCE_DIR}/external/lib/FREETYPE/)
 
 set(SOURCE_FILES
     source/opengl/shader.cpp
@@ -53,9 +55,9 @@ set(SOURCE_FILES
     source/util/queue.h
     source/engine.h
     source/render/renderstructs.h
-        source/compiled/shaders.h source/render/renderer/renderer2d.h source/render/renderer/renderer2d.cpp source/opengl/pixelfield.cpp source/opengl/pixelfield.h)
+        source/compiled/shaders.h source/render/renderer/renderer2d.h source/render/renderer/renderer2d.cpp source/opengl/pixelfield.cpp source/opengl/pixelfield.h source/util/scheduler.cpp source/util/scheduler.h source/util/runnable.cpp source/util/runnable.h source/callbacks/callbackmanager.cpp source/callbacks/callbackmanager.h source/gui/text/charset.cpp source/gui/text/charset.h source/gui/text/text.cpp source/gui/text/text.h source/profiler/profiler.cpp source/profiler/profiler.h source/gui/button/button.cpp source/gui/button/button.h source/math/boundingbox2d.cpp source/math/boundingbox2d.h)
 
 
 add_library(Amethyst SHARED ${SOURCE_FILES})
 
-target_link_libraries(Amethyst glew32 glfw3 gdi32 opengl32)
+target_link_libraries(Amethyst glew32 glfw3 gdi32 opengl32 freetype)

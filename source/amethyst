@@ -20,6 +20,11 @@
 #include "util/queue.h"
 #include "render/renderer/renderer2d.h"
 #include "compiled/shaders.h"
+#include "util/scheduler.h"
+#include "gui/text/charset.h"
+#include "gui/text/text.h"
+#include "gui/button/button.h"
+#include "profiler/profiler.h"
 
 #include <THREADS/mingw.mutex.h>
 #include <THREADS/mingw.thread.h>

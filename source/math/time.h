@@ -16,8 +16,8 @@ static time_point currentTimePoint() {
     return std::chrono::high_resolution_clock::now();
 }
 
-static time_point now() {
-    return std::chrono::high_resolution_clock::now();
+static int getTime() {
+    return std::clock();
 }
 
 class DeltaTime {
@@ -33,13 +33,15 @@ public:
 
 class FPS {
 public:
-    static double getFPS();
+    static float getFPS();
 };
 
 namespace Time {
+
 static void update() {
     DeltaTime::update();
 }
+
 }
 
 }

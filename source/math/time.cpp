@@ -24,6 +24,6 @@ float AM::DeltaTime::getBigDeltaTime() {
     return m_bigDeltaTime;
 }
 
-double AM::FPS::getFPS() {
-    return 1/DeltaTime::getDeltaTime();
+float AM::FPS::getFPS() {
+    return 1.0f/DeltaTime::getDeltaTime();
 }

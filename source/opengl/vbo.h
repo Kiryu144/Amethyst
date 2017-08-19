@@ -5,8 +5,6 @@
 #include <vector>
 #include "view/window.h"
 
-#define AM_VBO_UPLOAD_INVALID_DATA 1
-
 namespace AM {
 
 template<typename T, unsigned int elementAmount, int dataType = GL_FLOAT>
@@ -23,7 +21,7 @@ public:
 
     void upload(std::vector<T> &data, GLenum storagePattern = GL_STATIC_DRAW) {
         if(data.size() == 0){
-            throwAmethystException(AM_VBO_UPLOAD_INVALID_DATA, "Could not upload data to VBO. Array size is 0!");
+            throwAmethystException("Could not upload data to VBO. Array size is 0!");
         }
         if (this->vboExists()) {
             this->deleteVBO();

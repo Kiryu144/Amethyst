@@ -11,9 +11,6 @@
 #include "util/amethystexception.h"
 #include "util/logger.h"
 
-#define AM_WINDOW_GLEWINIT_FAIL 1
-#define AM_WINDOW_ALREADY_INITIALIZED 2
-
 namespace AM {
 
 static void setupOpenGLSettings() {
@@ -28,7 +25,7 @@ static void glewInit() {
     glewExperimental = GL_TRUE;
     int glewState = ::glewInit();
     if(glewState){ /* If glewInit() fails */
-        throwAmethystException(AM_WINDOW_GLEWINIT_FAIL, ("Could not glewInit(). GLEW Error: " + std::string((const char*)glewGetErrorString(glewState))));
+        throwAmethystException("Could not glewInit(). GLEW Error: " + std::string((const char*)glewGetErrorString(glewState)));
     }
 }
 

@@ -17,7 +17,7 @@ void AM::Renderer2D::addToBatch(AM::Texture *texture, AM::Transformation transfo
 
 void AM::Renderer2D::render() {
     if(!m_plane2D.vboExists()){
-        throwAmethystException(AM_RENDERER_NOT_INITIALIZED, "Renderer is not initalized yet");
+        throwAmethystException( "Renderer is not initalized yet");
     }
 
     m_texture2Dshader->bind();

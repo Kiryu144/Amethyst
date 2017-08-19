@@ -9,9 +9,6 @@
 #include "view/window.h"
 #include "opengl/pixelfield.h"
 
-#define AM_TEXTURE_PICOPNG_ERROR 1
-#define AM_SHADER_BIND_FAIL    2
-
 namespace AM {
 
 class Texture {
@@ -25,6 +22,8 @@ public:
     Texture(std::string filePath);
     Texture(Pixelfield& pixelfield);
     ~Texture();
+
+    glm::vec2 getSize();
 
     void bind() const;
     unsigned int getVBO() const;

@@ -8,11 +8,11 @@ namespace AM{
 namespace compiled{
 namespace shader{
 
-std::string texture2D_vert =
+static std::string texture2D_vert =
 #include "compiled/shaders/texture2d.vert"
 ;
 
-std::string texture2D_frag =
+static std::string texture2D_frag =
 #include "compiled/shaders/texture2d.frag"
 ;
 

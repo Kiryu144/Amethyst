@@ -10,23 +10,21 @@
 
 class __AmethystException{
 private:
-    int m_errorID;
     std::string m_exc;
     time_t m_triggerTime;
 public:
 
-    __AmethystException(int id, std::string exc, std::string file, unsigned int line){
-        this->m_errorID = id;
+    __AmethystException(std::string exc, std::string file, unsigned int line){
         if(file.size() > 0) {
-            this->m_exc = "[" + file + ":" + std::to_string(line) + ", " + std::to_string(id) + "] " + exc;
+            this->m_exc = "[" + file + ":" + std::to_string(line)  + "] " + exc;
         }else{
             this->m_exc = exc;
         }
         m_triggerTime = time(0);
     }
 
-    __AmethystException(int id, std::string exc = "NULL"){
-        __AmethystException(id, exc, "", 0);
+    __AmethystException(std::string exc = "NULL"){
+        __AmethystException(exc, "", 0);
     }
 
     std::string getExceptionString(){
@@ -36,12 +34,8 @@ public:
     time_t getTriggerTime(){
         return m_triggerTime;
     }
-
-    int getID(){
-        return m_errorID;
-    }
 };
 
-#define throwAmethystException(id, exc) throw(__AmethystException(id, exc, __FILENAME__, __LINE__));
+#define throwAmethystException(exc) throw(__AmethystException(exc, __FILENAME__, __LINE__));
 
 #endif

@@ -13,7 +13,7 @@ AM::Framebuffer::Framebuffer(glm::vec2 size) : m_texture(size) {
     glDrawBuffers(1, drawBuffers);
 
     if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE){
-        throwAmethystException(AM_FRAMEBUFFER_GPU_ERROR, "Error while creating Framebuffer");
+        throwAmethystException("Error while creating Framebuffer");
     }
 
     this->unbind();

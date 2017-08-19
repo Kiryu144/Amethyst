@@ -10,12 +10,12 @@ AM::Window::Window(std::string title, glm::vec2 size, GLFWwindow *master, bool v
     glfwWindowHint(GLFW_SAMPLES, 2);
     glfwWindowHint(GLFW_VISIBLE, visible);
 
+    glfwSwapInterval(0);
     m_glfwWindow = glfwCreateWindow(size.x, size.y, "", NULL, master);
+    glfwSwapInterval(0);
 
     this->setSize(size);
     this->setTitle(title);
-
-    glfwSwapInterval(0);
 
     if(master == nullptr){
         this->makeContextCurrent();
@@ -96,7 +96,7 @@ bool AM::Window::isVisible() {
 
 void AM::WindowHandler::init(std::string title, glm::vec2 size, glm::vec4 clearColor, int sharedWindows){
     if(AM::WindowHandler::detail::masterWindow != nullptr){
-        throwAmethystException(AM_WINDOW_ALREADY_INITIALIZED, "Windowhandler already initialized.");
+        throwAmethystException("Windowhandler already initialized.");
     }
 
     AM::WindowHandler::detail::masterWindow = new AM::Window(title, size, nullptr, true);

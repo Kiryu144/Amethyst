@@ -11,6 +11,7 @@ static bool framestart(bool updateWindow, bool clearWindow){
     if(updateWindow){
         running = AM::WindowHandler::update(clearWindow);
     }
+    AM::Scheduler::update();
     AM::Time::update();
     AM::InputController::process();
     return running;

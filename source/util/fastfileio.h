@@ -9,9 +9,6 @@
 
 #include "util/amethystexception.h"
 
-#define AM_FASTFILEIO_FILE_NOT_EXISTS 1
-#define AM_FASTFILEIO_COULD_NOT_READ  2
-
 namespace AM {
 
 static bool fileExists(std::string path){
@@ -26,7 +23,7 @@ static bool fileExists(std::string path){
 template <typename T>
 static void readFile(std::string path, std::vector<T>& data){
     if(!fileExists(path)){
-        throwAmethystException(AM_FASTFILEIO_FILE_NOT_EXISTS, "File does not exist!");
+        throwAmethystException("File does not exist!");
     }
 
     try{
@@ -35,7 +32,7 @@ static void readFile(std::string path, std::vector<T>& data){
         data.assign((std::istreambuf_iterator<char>(f)),
                     (std::istreambuf_iterator<char>()));
     }catch(...){
-        throwAmethystException(AM_FASTFILEIO_COULD_NOT_READ, "File could not be read!")
+        throwAmethystException("File could not be read!")
     }
 }
 
@@ -47,7 +44,7 @@ static void readFile(std::string path, std::string& data){
         data.reserve(rawData.size());
         data.assign(rawData.begin(), rawData.end());
     }catch(...){
-        throwAmethystException(AM_FASTFILEIO_COULD_NOT_READ, "File could not be read!")
+        throwAmethystException("File could not be read!")
     }
 }
 

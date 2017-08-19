@@ -19,7 +19,7 @@ AM::Texture::Texture(std::string filePath) {
     std::vector<unsigned char> decodedImage;
     int error = decodePNG(decodedImage, m_size.x, m_size.y, &encodedImage.at(0), encodedImage.size());
     if(error != 0){
-        throwAmethystException(AM_TEXTURE_PICOPNG_ERROR, "PicoPNG returned error code " + std::to_string(error));
+        throwAmethystException("PicoPNG returned error code " + std::to_string(error));
     }
 
 
@@ -37,11 +37,16 @@ AM::Texture::Texture(AM::Pixelfield &pixelfield) {
     this->bind();
 
     m_size = pixelfield.getSize();
+    if(!m_size.x || !m_size.y){
+        throwAmethystException("Cannot generate texture with 0 size pixelfield!");
+    }
 
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_size.x, m_size.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, &pixelfield.get().at(0));
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 }
 
 
@@ -51,7 +56,7 @@ AM::Texture::~Texture() {
 
 void AM::Texture::bind() const {
     if(m_textureVBO == unsigned (-1)){
-        throwAmethystException(AM_SHADER_BIND_FAIL, "Cannot bind texture with no VBO data uploaded!");
+        throwAmethystException("Cannot bind texture with no VBO data uploaded!");
     }
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, m_textureVBO);
@@ -59,6 +64,10 @@ void AM::Texture::bind() const {
 
 unsigned int AM::Texture::getVBO() const {
     return m_textureVBO;
+}
+
+glm::vec2 AM::Texture::getSize() {
+    return m_size;
 }
 
 
